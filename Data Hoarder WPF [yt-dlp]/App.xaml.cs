@@ -1,14 +1,27 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using DataHoarder.Services;
 
 namespace DataHoarder
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-    }
+        public YoutubeEngine Engine { get; private set; }
+        public DatabaseService Database { get; private set; }
 
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // Define o caminho do banco de dados
+            string root = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "YTDlpHoarder_Root");
+
+            Database = new DatabaseService(root);
+            Engine = new YoutubeEngine();
+
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+
+            await Engine.InitializeAsync(null);
+        }
+    }
 }
