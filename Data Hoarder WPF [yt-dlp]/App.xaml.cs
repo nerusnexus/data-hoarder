@@ -5,8 +5,8 @@ namespace DataHoarder
 {
     public partial class App : Application
     {
-        public YoutubeEngine Engine { get; private set; }
-        public DatabaseService Database { get; private set; }
+        public YoutubeEngine Engine { get; private set; } = default!;
+        public DatabaseService Database { get; private set; } = default!;
 
         protected override async void OnStartup(StartupEventArgs e)
         {
@@ -21,7 +21,7 @@ namespace DataHoarder
             var mainWindow = new MainWindow();
             mainWindow.Show();
 
-            await Engine.InitializeAsync(null);
+            await Engine.InitializeAsync(null!);
         }
     }
 }

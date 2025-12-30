@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using Wpf.Ui;
+using Wpf.Ui.Abstractions; // Required for INavigationViewPageProvider
 using Wpf.Ui.Controls;
 using DataHoarder.Views;
 
@@ -12,15 +14,20 @@ namespace DataHoarder
             InitializeComponent();
             Loaded += (s, e) =>
             {
-                RootNavigation.SetPageService(new PageService());
+                // ERROR FIX: Use 'SetPageProviderService' instead of 'SetPageService'
+                RootNavigation.SetPageProviderService(new PageService());
                 RootNavigation.Navigate(typeof(DashboardPage));
             };
         }
     }
 
-    public class PageService : Wpf.Ui.IPageService
+    // ERROR FIX: Implement 'INavigationViewPageProvider' instead of 'IPageService'
+    public class PageService : INavigationViewPageProvider
     {
-        public T? GetPage<T>() where T : class => (T?)Activator.CreateInstance(typeof(T));
-        public FrameworkElement? GetPage(Type pageType) => Activator.CreateInstance(pageType) as FrameworkElement;
+        // This method is required by the interface
+        public object? GetPage(Type pageType)
+        {
+            return Activator.CreateInstance(pageType);
+        }
     }
 }

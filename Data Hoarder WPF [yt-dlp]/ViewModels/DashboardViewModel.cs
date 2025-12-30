@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using DataHoarder.Models;
 using DataHoarder.Services;
 using System.Collections.ObjectModel;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -11,7 +10,7 @@ namespace DataHoarder.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject
     {
-        private readonly DatabaseService _databaseService;
+        private readonly DatabaseService _databaseService = null!;
 
         [ObservableProperty]
         private ObservableCollection<Channel> _channels;

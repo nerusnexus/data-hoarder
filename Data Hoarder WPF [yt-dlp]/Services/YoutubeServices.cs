@@ -38,7 +38,6 @@ namespace DataHoarder.Services
             {
                 Output = Path.Combine(outputFolder, "%(title)s [%(id)s].%(ext)s"),
                 RestrictFilenames = true,
-                Overwrite = false,
                 Format = "bestvideo+bestaudio/best",
                 MergeOutputFormat = DownloadMergeFormat.Mp4,
             };
