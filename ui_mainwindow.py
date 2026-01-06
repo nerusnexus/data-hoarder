@@ -15,15 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QMainWindow,
-    QPushButton, QSizePolicy, QSpacerItem, QStackedWidget,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLayout,
+    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
+    QStackedWidget, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1106, 618)
+        MainWindow.resize(1101, 618)
         MainWindow.setStyleSheet(u"/* Fundo geral do App */\n"
 "QMainWindow {\n"
 "    background-color: #1a1a1a;\n"
@@ -59,25 +59,69 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalLayout = QHBoxLayout(self.centralwidget)
+        self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.frame_title_bar = QFrame(self.centralwidget)
+        self.frame_title_bar.setObjectName(u"frame_title_bar")
+        self.frame_title_bar.setMaximumSize(QSize(16777215, 50))
+        self.frame_title_bar.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_title_bar.setFrameShadow(QFrame.Shadow.Raised)
+        self.frame_title_bar.setLineWidth(0)
+        self.horizontalLayout = QHBoxLayout(self.frame_title_bar)
+        self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.frame_trigger = QFrame(self.centralwidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalSpacer = QSpacerItem(901, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
+        self.btn_minimize = QPushButton(self.frame_title_bar)
+        self.btn_minimize.setObjectName(u"btn_minimize")
+
+        self.horizontalLayout.addWidget(self.btn_minimize)
+
+        self.btn_maximize = QPushButton(self.frame_title_bar)
+        self.btn_maximize.setObjectName(u"btn_maximize")
+
+        self.horizontalLayout.addWidget(self.btn_maximize)
+
+        self.btn_close = QPushButton(self.frame_title_bar)
+        self.btn_close.setObjectName(u"btn_close")
+
+        self.horizontalLayout.addWidget(self.btn_close)
+
+
+        self.verticalLayout_2.addWidget(self.frame_title_bar)
+
+        self.frame_main_content = QFrame(self.centralwidget)
+        self.frame_main_content.setObjectName(u"frame_main_content")
+        self.frame_main_content.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_main_content.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_main_content)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.frame_trigger = QFrame(self.frame_main_content)
         self.frame_trigger.setObjectName(u"frame_trigger")
-        self.frame_trigger.setMinimumSize(QSize(5, 0))
-        self.frame_trigger.setMaximumSize(QSize(10, 16777215))
+        self.frame_trigger.setStyleSheet(u"border: none; background: transparent;")
         self.frame_trigger.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_trigger.setFrameShadow(QFrame.Shadow.Raised)
 
-        self.horizontalLayout.addWidget(self.frame_trigger)
+        self.horizontalLayout_2.addWidget(self.frame_trigger)
 
-        self.frame_sidebar = QFrame(self.centralwidget)
+        self.frame_sidebar = QFrame(self.frame_main_content)
         self.frame_sidebar.setObjectName(u"frame_sidebar")
         self.frame_sidebar.setMinimumSize(QSize(150, 0))
         self.frame_sidebar.setMaximumSize(QSize(200, 16777215))
         self.frame_sidebar.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame_sidebar.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout = QVBoxLayout(self.frame_sidebar)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.btn_toggle = QPushButton(self.frame_sidebar)
         self.btn_toggle.setObjectName(u"btn_toggle")
 
@@ -103,9 +147,9 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.btn_settings)
 
 
-        self.horizontalLayout.addWidget(self.frame_sidebar)
+        self.horizontalLayout_2.addWidget(self.frame_sidebar)
 
-        self.stacked_pages = QStackedWidget(self.centralwidget)
+        self.stacked_pages = QStackedWidget(self.frame_main_content)
         self.stacked_pages.setObjectName(u"stacked_pages")
         self.page = QWidget()
         self.page.setObjectName(u"page")
@@ -114,13 +158,18 @@ class Ui_MainWindow(object):
         self.page_2.setObjectName(u"page_2")
         self.stacked_pages.addWidget(self.page_2)
 
-        self.horizontalLayout.addWidget(self.stacked_pages)
+        self.horizontalLayout_2.addWidget(self.stacked_pages)
+
+
+        self.verticalLayout_2.addWidget(self.frame_main_content)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        self.frame_main_content.raise_()
+        self.frame_title_bar.raise_()
 
         self.retranslateUi(MainWindow)
 
-        self.stacked_pages.setCurrentIndex(0)
+        self.stacked_pages.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -128,6 +177,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.btn_minimize.setText(QCoreApplication.translate("MainWindow", u"minimize", None))
+        self.btn_maximize.setText(QCoreApplication.translate("MainWindow", u"maximize", None))
+        self.btn_close.setText(QCoreApplication.translate("MainWindow", u"close", None))
         self.btn_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Home", None))
         self.btn_library.setText(QCoreApplication.translate("MainWindow", u"Library", None))
