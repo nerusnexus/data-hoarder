@@ -1,16 +1,21 @@
-# This Python file uses the following encoding: utf-8
 import sys
-from pathlib import Path
+from PySide6.QtWidgets import QApplication
+from GUI import DataHoarderGUI  # Importa a classe que criamos no seu arquivo GUI.py
 
-from PySide6.QtGui import QGuiApplication
-from PySide6.QtQml import QQmlApplicationEngine
+def main():
+    # 1. Cria a instância da aplicação (necessário para qualquer app PySide6)
+    app = QApplication(sys.argv)
 
+    # 2. Instancia a sua janela personalizada
+    # Note que chamamos a classe 'DataHoarderGUI' que está dentro do arquivo GUI.py
+    window = DataHoarderGUI()
 
-if __name__ == "__main__":
-    app = QGuiApplication(sys.argv)
-    engine = QQmlApplicationEngine()
-    qml_file = Path(__file__).resolve().parent / "main.qml"
-    engine.load(qml_file)
-    if not engine.rootObjects():
-        sys.exit(-1)
+    # 3. Exibe a janela na tela
+    window.show()
+
+    # 4. Inicia o loop de eventos (faz o programa ficar aberto esperando seus cliques)
     sys.exit(app.exec())
+
+# Esta linha garante que o programa só rode se você clicar no 'Play' deste arquivo
+if __name__ == "__main__":
+    main()
