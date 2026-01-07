@@ -288,22 +288,29 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_closeSideTab">
-               <property name="cursor">
-                <cursorShape>PointingHandCursor</cursorShape>
-               </property>
-               <property name="text">
-                <string>Close Side Tab</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="btn_settings">
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
                 <string>Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_info">
+               <property name="text">
+                <string>Info</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_closeSideTab">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="text">
+                <string>Close Side Tab</string>
                </property>
               </widget>
              </item>
@@ -316,10 +323,13 @@
              <number>0</number>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
-            <widget class="QWidget" name="page"/>
-            <widget class="QWidget" name="page_2"/>
+            <widget class="QWidget" name="page_home"/>
+            <widget class="QWidget" name="page_library"/>
+            <widget class="QWidget" name="page_ytdlp"/>
+            <widget class="QWidget" name="page_database"/>
+            <widget class="QWidget" name="page_settings"/>
            </widget>
           </item>
          </layout>

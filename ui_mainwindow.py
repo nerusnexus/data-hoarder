@@ -139,17 +139,22 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
-        self.btn_closeSideTab = QPushButton(self.frame_sidebar)
-        self.btn_closeSideTab.setObjectName(u"btn_closeSideTab")
-        self.btn_closeSideTab.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-
-        self.verticalLayout.addWidget(self.btn_closeSideTab)
-
         self.btn_settings = QPushButton(self.frame_sidebar)
         self.btn_settings.setObjectName(u"btn_settings")
         self.btn_settings.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.verticalLayout.addWidget(self.btn_settings)
+
+        self.btn_info = QPushButton(self.frame_sidebar)
+        self.btn_info.setObjectName(u"btn_info")
+
+        self.verticalLayout.addWidget(self.btn_info)
+
+        self.btn_closeSideTab = QPushButton(self.frame_sidebar)
+        self.btn_closeSideTab.setObjectName(u"btn_closeSideTab")
+        self.btn_closeSideTab.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+
+        self.verticalLayout.addWidget(self.btn_closeSideTab)
 
 
         self.horizontalLayout_2.addWidget(self.frame_sidebar)
@@ -157,12 +162,21 @@ class Ui_MainWindow(object):
         self.stacked_pages = QStackedWidget(self.frame_content)
         self.stacked_pages.setObjectName(u"stacked_pages")
         self.stacked_pages.setLineWidth(0)
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.stacked_pages.addWidget(self.page)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.stacked_pages.addWidget(self.page_2)
+        self.page_home = QWidget()
+        self.page_home.setObjectName(u"page_home")
+        self.stacked_pages.addWidget(self.page_home)
+        self.page_library = QWidget()
+        self.page_library.setObjectName(u"page_library")
+        self.stacked_pages.addWidget(self.page_library)
+        self.page_ytdlp = QWidget()
+        self.page_ytdlp.setObjectName(u"page_ytdlp")
+        self.stacked_pages.addWidget(self.page_ytdlp)
+        self.page_database = QWidget()
+        self.page_database.setObjectName(u"page_database")
+        self.stacked_pages.addWidget(self.page_database)
+        self.page_settings = QWidget()
+        self.page_settings.setObjectName(u"page_settings")
+        self.stacked_pages.addWidget(self.page_settings)
 
         self.horizontalLayout_2.addWidget(self.stacked_pages)
 
@@ -176,7 +190,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stacked_pages.setCurrentIndex(1)
+        self.stacked_pages.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -192,7 +206,8 @@ class Ui_MainWindow(object):
         self.btn_library.setText(QCoreApplication.translate("MainWindow", u"Library", None))
         self.btn_database.setText(QCoreApplication.translate("MainWindow", u"Database", None))
         self.btn_ytdlp.setText(QCoreApplication.translate("MainWindow", u"YT-DLP", None))
-        self.btn_closeSideTab.setText(QCoreApplication.translate("MainWindow", u"Close Side Tab", None))
         self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
+        self.btn_info.setText(QCoreApplication.translate("MainWindow", u"Info", None))
+        self.btn_closeSideTab.setText(QCoreApplication.translate("MainWindow", u"Close Side Tab", None))
     # retranslateUi
 
