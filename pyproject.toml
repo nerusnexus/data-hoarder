@@ -2,4 +2,4 @@
 name = "PySide QtQuick Project"
 
 [tool.pyside6-project]
-files = ["GUI.py", "MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf", "README.md", "icons/yt-dlp.svg", "main.py", "main.qml", "mainwindow.ui"]
+files = ["GUI.py", "MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf", "README.md", "YtDlpPage.py", "YtDlpPage_Manage.py", "db_manager.py", "icons/yt-dlp.svg", "main.py", "main.qml", "mainwindow.ui", "ui/StyleSheets.py", "ui/__init__.py", "ui/custom_widgets.py", "ui/ui_utils.py", "yt_dlp_channel.py"]
