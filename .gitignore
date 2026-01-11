@@ -88,6 +88,7 @@ __pycache__/
 venv/
 build/
 dist/
+Root/
 
 *.db
 

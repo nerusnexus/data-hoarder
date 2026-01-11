@@ -10,6 +10,7 @@ def fetch_channel_data(url):
         'skip_download': True,
         'dump_single_json': True,
         'no_warnings': True,
+        'extract_flat': True,
     }
 
     try:

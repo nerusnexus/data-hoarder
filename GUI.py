@@ -7,11 +7,10 @@ import os
 # Importações dos seus módulos customizados na pasta 'ui'
 from ui.custom_widgets import SideGrip
 from ui.StyleSheets import MAIN_STYLE_SHEET, FLOATING_OPEN_BUTTON, SIDEBAR_BUTTON_MARGIN
-from ui.ui_utils import IconManager  # Centraliza o uso do .ttf
+from ui.ui_utils import IconManager
 from YtDlpPage import YtDlpPage
-
-# Se você já criou o core/manager.py, importe-o aqui
-# from core.manager import DataManager
+# --- ADDED: Import SettingsPage ---
+from SettingsPage import SettingsPage
 
 class DataHoarderGUI(QMainWindow):
     def __init__(self):
@@ -27,9 +26,6 @@ class DataHoarderGUI(QMainWindow):
         self.grip_size = 5
         self.is_animating = False
         self.drag_pos = None
-
-        # Inicializa o gerenciador de dados (SQL e Pastas)
-        # self.data_manager = DataManager()
 
         # 2. CONFIGURAÇÃO FRAMELESS
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -47,7 +43,7 @@ class DataHoarderGUI(QMainWindow):
         self.setup_floating_button()
         self.setup_sidebar_buttons()
         self.setup_window_buttons()
-        self.setup_pages()
+        self.setup_pages() # <--- This function now loads Settings
 
         # 6. CONEXÕES DE BOTÕES DE JANELA
         self.ui.btn_close.clicked.connect(self.close)
@@ -89,11 +85,18 @@ class DataHoarderGUI(QMainWindow):
         self.ui.centralwidget.setGraphicsEffect(self.shadow)
 
     def setup_pages(self):
-        """Injeta a página modular do YT-DLP"""
+        """Injeta as páginas modulares (YT-DLP, Settings, etc)"""
+        # --- 1. YT-DLP Page ---
         self.ytdlp_content = YtDlpPage()
-        layout = QVBoxLayout(self.ui.page_ytdlp)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(self.ytdlp_content)
+        layout_ytdlp = QVBoxLayout(self.ui.page_ytdlp)
+        layout_ytdlp.setContentsMargins(0, 0, 0, 0)
+        layout_ytdlp.addWidget(self.ytdlp_content)
+
+        # --- 2. Settings Page (ADDED THIS BLOCK) ---
+        self.settings_content = SettingsPage()
+        layout_settings = QVBoxLayout(self.ui.page_settings)
+        layout_settings.setContentsMargins(0, 0, 0, 0)
+        layout_settings.addWidget(self.settings_content)
 
     def setup_sidebar_buttons(self):
         """Configura ícones, textos e estilos dinâmicos da sidebar"""
@@ -104,6 +107,7 @@ class DataHoarderGUI(QMainWindow):
             [self.ui.btn_library, "library_books", "Library", 1, 5],
             [getattr(self.ui, 'btn_ytdlp', None), "icons/yt-dlp.svg", "Yt-dlp", 2, 5],
             [self.ui.btn_database, "database", "Database", 3, 5],
+            # Settings points to Index 4
             [self.ui.btn_settings, "settings", "Settings", 4, 5],
             [self.ui.btn_info, "info", "Info", 5, 5],
             [self.ui.btn_closeSideTab, "chevron_left", "Close Tab", None, 5]
@@ -114,19 +118,18 @@ class DataHoarderGUI(QMainWindow):
                 btn.setMinimumWidth(0)
                 btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-                # Usa o IconManager para pegar ícones do seu .ttf ou .svg
                 icon = IconManager.get_icon(icon_id, color="#cccccc", size=self.icon_size)
                 btn.setIcon(icon)
                 btn.setIconSize(QSize(self.icon_size, self.icon_size))
                 btn.setText(f"  {label}")
                 btn.setFixedHeight(50)
 
-                # Aplica apenas a margem dinâmica (preserva o visual global do MAIN_STYLE_SHEET)
                 btn.setStyleSheet(SIDEBAR_BUTTON_MARGIN.format(margin_top))
 
                 if page_idx is not None:
                     btn.setCheckable(True)
                     btn.setAutoExclusive(True)
+                    # Connect button to switch page in stackedWidget
                     btn.clicked.connect(lambda checked=False, p=page_idx: self.ui.stacked_pages.setCurrentIndex(p))
 
                 if btn == self.ui.btn_closeSideTab:
@@ -137,7 +140,7 @@ class DataHoarderGUI(QMainWindow):
     def setup_window_buttons(self):
         # Close
         self.ui.btn_close.setIcon(IconManager.get_icon("close", "#cccccc", 18))
-        self.ui.btn_close.setText("") # Garante que não tem texto
+        self.ui.btn_close.setText("")
 
         # Minimize
         self.ui.btn_minimize.setIcon(IconManager.get_icon("minimize", "#cccccc", 18))
@@ -155,9 +158,6 @@ class DataHoarderGUI(QMainWindow):
         self.btn_floating_open.setIcon(IconManager.get_icon("chevron_right", "#cccccc", 20))
         self.btn_floating_open.setStyleSheet(FLOATING_OPEN_BUTTON)
         self.btn_floating_open.clicked.connect(self.open_sidebar_from_floating)
-
-    # --- LÓGICA DE ANIMAÇÃO E EVENTOS DE MOUSE ---
-    # (Mantenha os métodos toggle_sidebar, resizeEvent, update_grips, mouseMoveEvent etc. como estavam na sua versão anterior, pois eles controlam o comportamento da janela)
 
     def unlock_animation(self): self.is_animating = False
 
