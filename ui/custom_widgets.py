@@ -1,5 +1,8 @@
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Qt
+from ui.ui_utils import IconManager
+from PySide6.QtGui import QCursor
+
 
 # Border grip to resize window
 class SideGrip(QWidget):
